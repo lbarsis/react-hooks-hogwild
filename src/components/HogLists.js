@@ -1,29 +1,24 @@
 import HogTile from "./HogTile";
-import {useState} from "react"
+import { useState } from "react"
 
-function HogLists({ hogs }) {
+function HogLists({ hogsData, setHogsData }) {
 
-  const [hogName, setHogName] = useState("Babe")
+  const [hogName, setHogName] = useState(null)
 
-  const displayHogs = hogs.map(hog => {
-    function handleClick(){
-      setHogName(hog.name)
+  const displayHogs = hogsData.map(hog => {
+    function handleClick() {
+      if (hogName === hog.name) {
+        setHogName(null)
+      } else {
+        setHogName(hog.name)
+      }
     }
 
     if (hogName === hog.name) {
-      return <HogTile 
-      key={hog.name} 
-      hog={hog} 
-      wieght={hog.weight}
-      greased={hog.greased}
-      medal={hog["highest medal achieved"]}
-      specialty={hog.specialty}
-      onHandleClick={handleClick}
-      />
+      return <HogTile key={hog.name} hogName={hogName} hog={hog} onHandleClick={handleClick} />
     } else {
-      return <HogTile key={hog.name} hog={hog} onHandleClick={handleClick}/>
+      return <HogTile key={hog.name} hog={hog} onHandleClick={handleClick} />
     }
-    
   })
 
   return (

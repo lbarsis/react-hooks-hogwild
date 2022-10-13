@@ -5,12 +5,24 @@ import HogLists from "./HogLists";
 import hogs from "../porkers_data";
 
 function App() {
-	console.log(hogs)
 	const [hogsData, setHogsData] = useState(hogs)
+
+	const filteredHogs = hogs.filter(hog => {
+    return hog.greased === true
+  })
+
+	function handleFilter() {
+		if (hogsData.length === hogs.length) {
+			setHogsData(filteredHogs)
+		} else {
+			setHogsData(hogs)
+		}
+	}
+
 	return (
 		<div className="App">
-			<Nav />
-			<HogLists hogs={hogsData}/>
+			<Nav hogs={hogsData} onHandleFilter={handleFilter}/>
+			<HogLists hogsData={hogsData} setHogsData={setHogsData}/>
 		</div>
 	);
 }
