@@ -6,12 +6,21 @@ import hogs from "../porkers_data";
 
 function App() {
 	const [hogsData, setHogsData] = useState(hogs)
+	const [searchHogs, setSearchHogs] = useState('')
 
-	const filteredHogs = hogs.filter(hog => {
-    return hog.greased === true
-  })
+	function handleInput(e) {
+		setSearchHogs(e.target.value)
+		const filteredHogs = hogs.filter(hog => {
+			return hog.name.includes(searchHogs)
+		})
+		setHogsData(filteredHogs)
+	}
 
 	function handleFilter() {
+		const filteredHogs = hogs.filter(hog => {
+			return hog.greased === true
+		})
+
 		if (hogsData.length === hogs.length) {
 			setHogsData(filteredHogs)
 		} else {
@@ -21,8 +30,8 @@ function App() {
 
 	return (
 		<div className="App">
-			<Nav hogs={hogsData} onHandleFilter={handleFilter}/>
-			<HogLists hogsData={hogsData} setHogsData={setHogsData}/>
+			<Nav hogs={hogsData} onHandleFilter={handleFilter} onHandleSearch={handleInput} searchHogs={searchHogs} />
+			<HogLists hogsData={hogsData} setHogsData={setHogsData} />
 		</div>
 	);
 }

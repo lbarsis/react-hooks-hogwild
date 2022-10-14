@@ -1,8 +1,7 @@
 import HogTile from "./HogTile";
 import { useState } from "react"
 
-function HogLists({ hogsData, setHogsData }) {
-
+function HogLists({ hogsData}) {
   const [hogName, setHogName] = useState(null)
 
   const displayHogs = hogsData.map(hog => {
